@@ -1,0 +1,27 @@
+<?php
+/**
+ * @file
+ * Code for the Open Armoni normativ feature.
+ */
+
+include_once 'armoni_normativ.features.inc';
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function armoni_normativ_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'ctools') {
+    return "plugins/$plugin_type";
+  }
+}
+
+/**
+ * Implements hook_theme()
+ */
+function armoni_normativ_theme() {
+  return array(
+    'armoni_normativ_default' => array(
+      'template' => 'armoni-normativ-default',
+    ),
+  );
+}

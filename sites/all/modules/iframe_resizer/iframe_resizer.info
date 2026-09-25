@@ -1,0 +1,11 @@
+name = iFrame Resizer
+description = Provides access to the iFrame Resizer javascript library
+core = 7.x
+configure = admin/config/user-interface/iframe_resizer
+
+; Information added by Drupal.org packaging script on 2016-10-16
+version = "7.x-1.1"
+core = "7.x"
+project = "iframe_resizer"
+datestamp = "1476640440"
+

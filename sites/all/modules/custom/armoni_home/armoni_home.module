@@ -1,0 +1,27 @@
+<?php
+/**
+ * @file
+ * Code for the Open Armoni Home feature.
+ */
+
+include_once 'armoni_home.features.inc';
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function armoni_home_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'ctools') {
+    return "plugins/$plugin_type";
+  }
+}
+
+/**
+ * Implements hook_theme()
+ */
+function armoni_home_theme() {
+  return array(
+    'armoni_home_default' => array(
+      'template' => 'armoni-home-default',
+    ),
+  );
+}

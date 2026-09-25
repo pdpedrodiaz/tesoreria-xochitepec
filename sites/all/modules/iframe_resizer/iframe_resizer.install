@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * @file
+ * Installation and uninstallation functions.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function iframe_resizer_requirements($phase) {
+  $requirements = array();
+  module_load_include('module', 'iframe_resizer');
+  $t = get_t();
+  $library_path = iframe_resizer_get_library_path();
+  switch ($phase) {
+    case 'runtime':
+      if (!$library_path) {
+        $requirements['iframe_resizer_js'] = array(
+          'title' => $t('iFrame Resizer JavaScript file'),
+          'severity' => REQUIREMENT_ERROR,
+          'description' => $t('You need to download the !library and extract the entire contents of the archive into the %path directory on your server.', array(
+            '!library' => l($t('iFrame Resizer JavaScript file'), IFRAME_RESIZER_LIBRARY_URL),
+            '%path' => 'sites/all/libraries',
+          )),
+          'value' => $t('Not Installed'),
+        );
+      }
+      else {
+        $requirements['iframe_resizer_js'] = array(
+          'title' => $t('iFrame Resizer JavaScript file'),
+          'severity' => REQUIREMENT_OK,
+          'value' => $t('Installed'),
+        );
+      }
+      break;
+  }
+  return $requirements;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function iframe_resizer_uninstall() {
+  // Delete created variables.
+  variable_del('iframe_resizer_host');
+  variable_del('iframe_resizer_hosted');
+  variable_del('iframe_resizer_override_defaults');
+  variable_del('iframe_resizer_log');
+  variable_del('iframe_resizer_height_calculation_method');
+  variable_del('iframe_resizer_width_calculation_method');
+  variable_del('iframe_resizer_autoresize');
+  variable_del('iframe_resizer_target_type');
+  variable_del('iframe_resizer_target_specifiers');
+  variable_del('iframe_resizer_bodybackground');
+  variable_del('iframe_resizer_bodymargin');
+  variable_del('iframe_resizer_inpagelinks');
+  variable_del('iframe_resizer_interval');
+  variable_del('iframe_resizer_maxheight');
+  variable_del('iframe_resizer_maxwidth');
+  variable_del('iframe_resizer_minheight');
+  variable_del('iframe_resizer_minwidth');
+  variable_del('iframe_resizer_resizefrom');
+  variable_del('iframe_resizer_scrolling');
+  variable_del('iframe_resizer_sizeheight');
+  variable_del('iframe_resizer_sizewidth');
+  variable_del('iframe_resizer_tolerance');
+  variable_del('iframe_resizer_targetorigin');
+  variable_del('iframe_resizer_hosted_width_calculation_method');
+  variable_del('iframe_resizer_hosted_height_calculation_method');
+}

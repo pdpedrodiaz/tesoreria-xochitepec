@@ -1,0 +1,178 @@
+<?php
+
+/**
+ * @file
+ * Includes the iFrameResizer.js library for fluid width and height iframes.
+ */
+
+/**
+ * Define iFrame Resizer library url.
+ */
+define('IFRAME_RESIZER_LIBRARY_URL', 'https://github.com/davidjbradshaw/iframe-resizer');
+
+/**
+ * Implements hook_help().
+ */
+function iframe_resizer_help($path, $arg) {
+  switch ($path) {
+    case "admin/help#iframe_resizer":
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('iFrame Resizer is a JavaScript library which enables fluid width and height iframe embeds.') . '</p>';
+      $output .= '<p>' . t('The library enables the automatic resizing of the height and width of both same and cross domain iFrames to fit their contained content. It provides a range of features to address the most common issues with using iFrames. For full documentation on the library see the project\'s <a href="@github_page">github page</a>.', array('@github_page' => url(IFRAME_RESIZER_LIBRARY_URL))) . '</p>';
+      $output .= '<h3>' . t('Setup') . '</h3>';
+      $output .= '<p>' . t('To use the module, you must first download the JavaScript library from the project\'s <a href="@github_page">github page</a>. Unpack and rename the resulting directory "iframe-resizer" and place it in your Drupal installation\'s "sites/all/libraries" directory (or appropriate profile or multisite directory). Make sure the path to the library\'s main file becomes: "sites/all/libraries/iframe-resizer/js/iframeResizer.min.js".', array('@github_page' => url(IFRAME_RESIZER_LIBRARY_URL))) . '</p>';
+      $output .= '<p>' . t('Once the library is in place, you can configure the module (see the link below).') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function iframe_resizer_permission() {
+  return array(
+    'administer iframe resizer' => array(
+      'title' => t('Administer the iFrame Resizer module'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function iframe_resizer_menu() {
+  $items = array();
+
+  $items['admin/config/user-interface/iframe_resizer'] = array(
+    'title' => 'iFrame Resizer',
+    'description' => 'Configuration for the iFrame Resizer module',
+    'file' => 'iframe_resizer.admin.inc',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('iframe_resizer_admin_form'),
+    'access arguments' => array('administer iframe resizer'),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_page_build().
+ */
+function iframe_resizer_page_build(&$page) {
+  // If the site is hosting resizable iFrames, include the necessary JS.
+  if (variable_get('iframe_resizer_host', FALSE)) {
+
+    // Include the library's main JS file for pages hosting resizable iFrames.
+    drupal_add_js(iframe_resizer_get_library_path() . '/js/iframeResizer.js', array(
+      'scope' => 'footer',
+      'group' => JS_LIBRARY,
+      'every_page' => TRUE,
+      'requires_jquery' => FALSE,
+    ));
+
+    // Make the configuration options available to JS.
+    $iframe_resizer_options = array(
+      'log' => check_plain(variable_get('iframe_resizer_log', FALSE)),
+      'heightCalculationMethod' => check_plain(variable_get('iframe_resizer_height_calculation_method', 'bodyOffset')),
+      'widthCalculationMethod' => check_plain(variable_get('iframe_resizer_width_calculation_method', 'scroll')),
+      'autoResize' => check_plain(variable_get('iframe_resizer_autoresize', TRUE)),
+      'bodyBackground' => check_plain(trim(variable_get('iframe_resizer_bodybackground', ''))),
+      'bodyMargin' => check_plain(trim(variable_get('iframe_resizer_bodymargin', ''))),
+      'inPageLinks' => check_plain(variable_get('iframe_resizer_inpagelinks', FALSE)),
+      'interval' => check_plain(variable_get('iframe_resizer_interval', 32)),
+      'maxHeight' => check_plain(variable_get('iframe_resizer_maxheight', 'Infinity')),
+      'maxWidth' => check_plain(variable_get('iframe_resizer_maxwidth', 'Infinity')),
+      'minHeight' => check_plain(variable_get('iframe_resizer_minheight', 0)),
+      'minWidth' => check_plain(variable_get('iframe_resizer_minwidth', 0)),
+      'resizeFrom' => check_plain(variable_get('iframe_resizer_resizefrom', 'parent')),
+      'scrolling' => check_plain(variable_get('iframe_resizer_scrolling', FALSE)),
+      'sizeHeight' => check_plain(variable_get('iframe_resizer_sizeheight', TRUE)),
+      'sizeWidth' => check_plain(variable_get('iframe_resizer_sizewidth', FALSE)),
+      'tolerance' => check_plain(variable_get('iframe_resizer_tolerance', 0)),
+    );
+    $iframe_resizer_target_specifiers = 'iframe';
+    if (variable_get('iframe_resizer_target_type', 'iframe') != 'all_iframes') {
+      $iframe_resizer_target_specifiers = check_plain(implode(', ', explode("\n", str_replace("\r", "", variable_get('iframe_resizer_target_specifiers', 'iframe')))));
+    }
+    drupal_add_js(array(
+      'iframe_resizer_options' => $iframe_resizer_options,
+      'iframe_resizer_target_specifiers' => $iframe_resizer_target_specifiers,
+      'iframe_resizer_override_defaults' => check_plain(variable_get('iframe_resizer_override_defaults', FALSE)),
+    ),
+      array(
+        'type' => 'setting',
+        'scope' => 'footer',
+        'group' => JS_DEFAULT,
+        'every_page' => TRUE,
+      )
+    );
+
+    // Include the module's JS file for hosting resizable iFrames.
+    drupal_add_js(drupal_get_path('module', 'iframe_resizer') . '/js/iframe_resizer.js', array(
+      'scope' => 'footer',
+      'group' => JS_DEFAULT,
+      'every_page' => TRUE,
+    ));
+  }
+
+  // If pages from this site will be hosted within pages made resizable by the
+  // iFrame Resizable library, include the necessary JS.
+  if (variable_get('iframe_resizer_hosted', FALSE)) {
+
+    // Include the library's main JS file for pages hosted within resizable
+    // iFrames.
+    drupal_add_js(iframe_resizer_get_library_path() . '/js/iframeResizer.contentWindow.js', array(
+      'scope' => 'footer',
+      'group' => JS_LIBRARY,
+      'every_page' => TRUE,
+      'weight' => 1,
+      'requires_jquery' => FALSE,
+    ));
+
+    // Make the configuration options available to JS.
+    drupal_add_js(array('iframe_resizer_targetorigin' => check_plain(variable_get('iframe_resizer_targetorigin', ''))), array('type' => 'setting'));
+    drupal_add_js(array('iframe_resizer_hosted_width_calculation_method' => check_plain(variable_get('iframe_resizer_hosted_width_calculation_method', ''))), array('type' => 'setting'));
+    drupal_add_js(array('iframe_resizer_hosted_height_calculation_method' => check_plain(variable_get('iframe_resizer_hosted_height_calculation_method', ''))), array('type' => 'setting'));
+
+    // Include the module's JS file for hosted resizable iFrames.
+    drupal_add_js(drupal_get_path('module', 'iframe_resizer') . '/js/iframe_resizer_hosted_options.js', array(
+      'scope' => 'footer',
+      'group' => JS_LIBRARY,
+      'every_page' => TRUE,
+      'weight' => 0,
+      'requires_jquery' => TRUE,
+    ));
+  }
+}
+
+/**
+ * Get the location of the iframe_resizer library.
+ *
+ * @return bool
+ *   The location of the library, or FALSE if the library isn't installed.
+ */
+function iframe_resizer_get_library_path() {
+
+  // The following logic is taken from libraries_get_libraries()
+  $searchdir = array();
+
+  // Similar to 'modules' and 'themes' directories inside an installation
+  // profile, installation profiles may want to place libraries into a
+  // 'libraries' directory.
+  $searchdir[] = 'profiles/' . drupal_get_profile() . '/libraries';
+
+  // Always search sites/all/libraries.
+  $searchdir[] = 'sites/all/libraries';
+
+  // Also search sites/<domain>/*.
+  $searchdir[] = conf_path() . '/libraries';
+
+  foreach ($searchdir as $dir) {
+    if (file_exists($dir . '/iframe-resizer/js/iframeResizer.contentWindow.js') && file_exists($dir . '/iframe-resizer/js/iframeResizer.js')) {
+      return $dir . '/iframe-resizer';
+    }
+  }
+
+  return FALSE;
+}

@@ -1,0 +1,173 @@
+html {
+	background: #f9f9f9;
+}
+
+body {
+	background: #f9f9f9;
+	width:86.625%;
+	font-size: 13px;
+	line-height: 20px;
+	color:#000000;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight: 200;
+	min-width: 300px;
+	padding:0;
+        margin-left:6.687%;
+        overflow-x:hidden;
+}
+
+#slogan { font-size: 14px !important;   !important; color:#055b9f; font-weight:700;}
+
+#header-menu {background: #118D3E; border-top:1px solid #118D3E; border-bottom:1px solid #118D3E;margin-bottom: 0;
+/*border-top: 1px solid #011e34; 	border-bottom: 1px solid #011e34;*/ z-index: 150 !important;
+ text-transform: capitalize !important;}
+}
+#header-menu ul.menu > li a{ color:#ffffff !important; font-weight: 500; z-index: 150 !important}
+
+#header-menu ul.menu {
+  width:150% !important;
+  margin-left:-75px;	 
+}
+#header-menu ul.menu > li{
+	/*width: 16.6660%;*/
+	/*border-top: 1px solid #011e34;
+	border-bottom: 1px solid #011e34;*/
+	 color:#ffffff !important; 
+	 font-weight: 500; 
+	 z-index: 150
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+#header-menu ul.menu >li.last{
+/*border-right: 1px solid #7a7a93;*/
+}	
+
+#header-menu ul.menu > li a:hover,
+#header-menu ul.menu > li .active,
+#header-menu ul.menu > li a:focus {
+  background: #c5c5c5 !important;
+/*  width: 90%;*/
+  color: #000000 !important;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: underline;
+}
+
+#header-menu ul.menu > li .active{
+  background: #606060 !important;
+  color: #ffffff !important;
+  font-weight: 500;
+  width: 80%;
+ }
+
+#banner  {
+   background-color: #f9f9f9 !important;
+   height:150px !important;
+   width:95%;
+   margin-top:42px;
+   margin.right:2.5%;
+   margin-bottom:40px;
+   margin-left:2.5%;
+   border-bottom:8px solid #c3313a !important; 
+/*border-top:5px solid #011e34;*/
+/*border-bottom:1px solid #011e34;
+background: #c9ebff;*/
+/* IE10 */ 
+/*background-image: -ms-linear-gradient(top, #c9ebff 0%, #f7fdff 100%);*/
+/* Mozilla Firefox */ 
+/*background-image: -moz-linear-gradient(top, #c9ebff 0%, #f7fdff 100%);*/
+/* Opera */ 
+/*background-image: -o-linear-gradient(top, #c9ebff 0%, #f7fdff 100%);*/
+/* Webkit (Safari/Chrome 10) */ 
+/*background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #c9ebff), color-stop(1, #f7fdff));*/
+/* Webkit (Chrome 11+) */ 
+/*background-image: -webkit-linear-gradient(top, #c9ebff 0%, #f7fdff 100%);*/
+/* Proposed W3C Markup */ 
+/*background-image: linear-gradient(top, #c9ebff0%, #f7fdff 100%);*/
+/* IE6-9 */ 
+/*filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#c9ebff', endColorstr='#f7fdff');*/
+}
+
+#content {
+margin-top: -30px !important;
+background: #f9f9f9;
+/* IE10 */ 
+/*background-image: -ms-linear-gradient(top, #ffffff 0%, #ffffff 100%);*/
+/* Mozilla Firefox */ 
+/*background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);*/
+/* Opera */ 
+/*background-image: -o-linear-gradient(top, #ffffff 0%, #ffffff 100%);*/
+/* Webkit (Safari/Chrome 10) */ 
+/*background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #ffffff));*/
+/* Webkit (Chrome 11+) */ 
+/*background-image: -webkit-linear-gradient(top, #ffffff 0%, #ffffff 100%);*/
+/* Proposed W3C Markup */ 
+/*background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);*/
+/* IE6-9 */ 
+/*filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff');*/ }
+
+#footer { background:#f9f9f9; }
+
+#footer-bottom{
+border-top:8px solid #c3313a !important;
+width:95% !important;
+max-height:210px !important;
+margin.right:2.5% !important;
+margin-bottom:0px !important;
+margin-left:2.5% !important;
+background: #f9f9f9 !important;
+color:#000000;
+/* IE10 */ 
+/*background-image: -ms-linear-gradient(top, #ffffff 0%, #ffffff 100%);
+/* Mozilla Firefox */ */
+/*background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);*/
+/* Opera */ 
+/*background-image: -o-linear-gradient(top, #ffffff 0%, #ffffff 100%);*/
+/* Webkit (Safari/Chrome 10) */ 
+/*background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #ffffff));*/
+/* Webkit (Chrome 11+) */ 
+/*background-image: -webkit-linear-gradient(top, #ffffff 0%, #ffffff 100%);*/
+/* Proposed W3C Markup */ 
+/*background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);*/
+/* IE6-9 */ 
+/*filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff');*/ }
+
+.links ul li a, a.more, #comments ul.links li a,
+input[type="submit"], input[type="reset"], input[type="button"] { color:#2f2f2f; text-shadow: 0 1px 1px #cbf3ff; 
+/* background */
+background: #aeecfd;
+/* IE10 */ 
+background-image: -ms-linear-gradient(top, #aeecfd 0%,#cbf3ff 100%);
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(top, #aeecfd 0%, #cbf3ff 100%);
+/* Opera */ 
+background-image: -o-linear-gradient(top, #aeecfd 0%, #cbf3ff 100%);
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #aeecfd), color-stop(1, #cbf3ff));
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(top, #aeecfd 0%, #cbf3ff 100%);
+/* Proposed W3C Markup */ 
+background-image: linear-gradient(top,#aeecfd0%, #cbf3ff 100%);
+/* IE6-9 */ 
+filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#aeecfd', endColorstr='#cbf3ff');
+/* shadow */
+-webkit-box-shadow: 0px 1px 2px #939da2; -moz-box-shadow: 0px 1px 2px #939da2; box-shadow: 0px 1px 2px #939da2; }
+
+.links ul li a:hover, a.more:hover, #comments ul.links li a:hover,
+input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover { background: #ebdada; }
+
+.region-sidebar-first .block .content, .region-sidebar-second .block .content { background:#fdfdfd; }
+
+/*************************************************
+Despliegue de pÃ¡ginas que son visitadas via frames
+**************************************************/ 
+.page-presupuestos #main > div > div > div > div > div > div > div.view-header > div,
+#main > div > div > div > div > div > div > div.view-header > div{
+ display: none !important;	
+}
+
+.page-sp-tesoreria div#banner,.page-sp-tesoreria div#footer-bottom,.page-sp-informacion-financiera div#banner,.page-sp-informacion-financiera div#footer-bottom {
+ display: none !important;	
+ }

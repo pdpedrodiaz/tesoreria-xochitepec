@@ -1,0 +1,359 @@
+
+/****************************/
+/* LOCAL CSS                */
+/****************************/
+
+/* Put your custom CSS and CSS overrides in this file and  */
+/* rename it local.css.  By restricting your CSS changes   */
+/* to local.css, your changes will not be overwritten when */
+/* upgrading to a new version of this theme.  You can also */
+/* use a local-rtl.css file for the equivalent in RTL.     */
+
+/* Steps to activate local.css:                       */
+/* 1. Add your custom CSS to this file                */
+/* 2. Rename this file to local.css                   */
+/* 3. Clear cached data at admin/settings/performance */
+
+
+#header {
+   max-height:150px;
+   background:#E1E1E1
+  }
+
+#footer{
+   max-height:150px;
+   background:#E1E1E1
+   margin: -30px 0px -20px 115px;
+  }
+
+/* Permitir ancho máximo de la página que será cubierta por el Panel Canvas*/
+
+#main,
+#main-wrapper 
+  {
+ /* width: 100%;*/
+  margin-top: 0;
+  margin-left:0;
+  margin-right:0;
+}
+/*#page-wrapper {
+  min-height: 100%;
+}*/
+
+
+.header-minipanel{
+  padding-top:20px;
+  background:#DED8D5;
+}
+
+.panel-flexible .pane-content {
+  margin-left: 10px;
+}
+
+
+#main-wrapper .section {
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  }
+.flotar-imagen-izquierda img{
+float:left;
+}
+
+.flotar-imagen-derecha img{
+float:right;
+}
+
+
+#block-panels-mini-encabezado-conexion-nacional .field-item {
+  margin-left: 0px;
+  margin-right: 97px;
+  padding-left: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+}
+
+#mini-panel-encabezado_conexion_nacional {
+  padding-left: 0px;
+  margin-left: 0px;
+  padding-right: 150px;
+}
+
+.fieldable-panels-pane {
+  margin-top: 34px;
+}
+
+.container-inline {
+  margin-top: 46px;
+}
+
+
+
+
+#main-menu {
+  clear: both;
+  height:40px;
+  width:100%;
+  background-color: #d9311a;
+  background-image: -moz-linear-gradient(top, #a7231c 0%, #d9311a 100%);
+  background-image: -ms-linear-gradient(top, #a7231c 0%, #d9311a 100%);
+  background-image: -o-linear-gradient(top, #a7231c 0%, #d9311a 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #a7231c), color-stop(1, #d9311a));
+  background-image: -webkit-linear-gradient(top, #a7231c 0%, #d9311a 100%);
+  background-image: linear-gradient(top, #a7231c 0%, #d9311a 100%);
+}
+
+#main-menu ul {
+  margin-left: 20%;
+  color:#ffffff !important;
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 0;
+  }
+
+#main-menu ul > .active > a, #main-menu ul > .active > a:hover, #main-menu ul > .active > a:focus, #main-menu ul > li > a:hover
+ {
+  background-color: #6f7070 !important;
+  background-image: -moz-linear-gradient(top, #a9aaac 0%, #6f7070 100%);
+  background-image: -ms-linear-gradient(top, #a9aaac 0%, #6f7070 100%);
+  background-image: -o-linear-gradient(top, #a9aaac 0%, #6f7070 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #a9aaac), color-stop(1, #6f7070 ));
+  background-image: -webkit-linear-gradient(top, #a9aaac 0%, #6f7070 100%);
+  background-image: linear-gradient(top, #a9aaac 0%, #6f7070 100%); 
+  color: #fff;
+ }
+ 
+#main-menu ul li {
+ /* border-right: 2px solid #ffffff;*/
+  height:40px;
+  overflow:hidden;
+  background-color: #6f7070 !important;
+  background-image: -moz-linear-gradient(top, #a9aaac 0%, #6f7070 100%);
+  background-image: -ms-linear-gradient(top, #a9aaac 0%, #6f7070 100%);
+  background-image: -o-linear-gradient(top, #a9aaac 0%, #6f7070 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #a9aaac), color-stop(1, #6f7070 ));
+  background-image: -webkit-linear-gradient(top, #a9aaac 0%, #6f7070 100%);
+  background-image: linear-gradient(top, #a9aaac 0%, #6f7070 100%); 
+  margin:0 0 0 0;
+}
+
+#main-menu: link,
+a:visited {
+  text-decoration: none;
+}
+
+
+#main-menu a:hover,
+a:active,
+a:focus {
+background:#AFAEAE;
+text-decoration: underline;
+}
+  
+#main-menu ul li:first-child {
+  border-left: 2px solid #ffffff; /* LTR */
+}
+
+#main-menu ul li:last-child {
+  border-right: 2px solid #ffffff; /* LTR */
+}
+
+
+#main-menu ul {
+	width: 100%;
+	border-right: 3px solid #ffffff;
+	list-style: none;
+}
+#main-menu ul > li{
+	width: 14.285%;
+	margin:0 0 0 0;
+	border-left: 3px solid #ffffff;
+	/*border-bottom: 1px solid #ed1d25;*/
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+#main-menu {
+	margin-bottom: 0;
+}
+/*.navbar-inner {
+    background:!important;
+    border-color:#ffffff;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    box-shadow: none;
+    min-height: 43px;
+    padding-left: 0;
+    padding-right: 1px;
+}*/
+
+#main-menu-inner {
+    -webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border-color: #ffffff;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+#main-menu ul > li > a{
+    color: #fff;
+    float: none;
+    padding: 10px 0px;
+    text-shadow: none;
+    font-size: 16px;
+    text-align: center;
+	background: #9C9E9F;
+}
+	#main-menu ul > li > a {
+		/*background: #009b76;*/
+		background: #9C9E9F;
+	}
+#main-menu ul > .active > a, #main-menu ul > .active > a:hover, #main-menu ul> .active > a:focus, #main-menu ul > li > a:hover
+  {
+    background: #AFAEAE;
+    box-shadow: none;
+    color: #fff;
+    font-weight: 700;
+}
+
+
+#footer-wrapper {
+  max-height:150px;
+  background: #E1E1E1;
+  }
+  
+
+/* ------------------------- SLIDER ------------------------- */
+.flex-viewport {
+	-webkit-transition: none;
+	-moz-transition: none;
+	-ms-transition: none;
+	-o-transition: none;
+	transition: none;
+}
+
+#block-views-slider-block {
+	padding-top: 11px;
+	padding-bottom: 7px;
+}
+
+#flexslider_views_slideshow_main_slider-block li {
+	padding: 0;
+}
+
+.flex-control-thumbs li {
+	width: 20%;
+}
+
+.flexslider .slides img {
+	width: 100%;
+	height: auto;
+}
+
+.flexslider {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    border-radius: 0 0 0 0;
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+.flex-control-nav {
+	bottom: -53px;
+	z-index: 20;
+}
+
+.flexslider .flex-next,
+.flexslider .flex-prev {
+	opacity: 1;
+}
+.flexslider .flex-direction-nav a, .flexslider .flex-direction-nav a {
+    display: block;
+    background: #fff;
+	/*background: #ed1d25;*/
+    width: 40px;
+    height: 40px;
+    -webkit-transition: none;
+	-moz-transition: none;
+	-ms-transition: none;
+	-o-transition: none;
+	transition: none;
+}
+
+.flexslider .flex-direction-nav a:hover {
+	background-color: #e17171;
+}
+
+.flex-direction-nav .flex-prev, .flex-direction-nav .flex-next {
+	text-align: left;
+	text-indent: -999em;
+}
+
+	.flex-direction-nav a.flex-prev {
+		background-image: url(../images/prev.png);
+		background-position: 48% 50%;
+		background-repeat: no-repeat;
+	}
+		.flex-direction-nav a.flex-prev:hover {
+			background-image: url(../images/prev-hover.png);
+		}
+	.flex-direction-nav a.flex-next {
+		background-image: url(../images/next.png);
+		background-position: 52% 50%;
+		background-repeat: no-repeat;
+	}
+		.flex-direction-nav a.flex-next:hover {
+			background-image: url(../images/next-hover.png);
+		}
+
+.flexslider:hover .flex-next, .flex-direction-nav .flex-next {opacity: 1; right: 0;}
+.flexslider:hover .flex-prev, .flex-direction-nav .flex-prev {opacity: 1; left: 0;}
+
+.flex-control-nav li a {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	width: 18px;
+	height: 18px;
+	background: url(../images/slider-nav.png) 100% 0 no-repeat;
+}
+
+.flex-control-paging li a.flex-active, .flex-control-paging li a:hover {
+	background: url(../images/slider-nav.png) 0 0 no-repeat;
+}
+
+.flex-control-nav li {
+	margin: 0 1px;
+}
+
+.flex-caption {
+	position: absolute;
+	left: auto;
+	right: 100px;
+	top: 120px;
+	text-align: right;
+}
+
+	.flex-caption .button {
+		margin-top: 25px;
+	}
+
+.slider-text-1 {
+	font-weight: 300;
+	font-size: 40px;
+	line-height: 38px;
+	color: #272c2f;
+	letter-spacing: -2px;
+}
+
+.slider-text-2 {
+	font-weight: 700;
+	font-size: 55px;
+	line-height: 50px;
+	color: #53284f;
+}

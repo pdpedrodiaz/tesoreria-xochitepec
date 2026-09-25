@@ -1,0 +1,130 @@
+
+/****************************/
+/* LOCAL CSS                */
+/****************************/
+
+/* Put your custom CSS and CSS overrides in this file and  */
+/* rename it local.css.  By restricting your CSS changes   */
+/* to local.css, your changes will not be overwritten when */
+/* upgrading to a new version of this theme.  You can also */
+/* use a local-rtl.css file for the equivalent in RTL.     */
+
+/* Steps to activate local.css:                       */
+/* 1. Add your custom CSS to this file                */
+/* 2. Rename this file to local.css                   */
+/* 3. Clear cached data at admin/settings/performance */
+
+
+#header {
+   max-height:180px;
+   background:#DED8D5;
+  }
+
+#footer{
+   max-height:180px;
+   background:#DED8D5;
+   margin: -30px 0px -20px 115px;
+  }
+
+/* Permitir ancho máximo de la página que será cubierta por el Panel Canvas*/
+
+#main,
+#main-wrapper 
+  {
+  width: 100%;
+  margin-top: 0;
+  margin-left:0;
+  margin-right:0;
+}
+/*#page-wrapper {
+  min-height: 100%;
+}*/
+
+
+.header-minipanel{
+  padding-top:20px;
+  background:#DED8D5;
+}
+
+.panel-flexible .pane-content {
+  margin-left: 10px;
+}
+
+
+#main-wrapper .section {
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  }
+.flotar-imagen-izquierda img{
+float:left;
+}
+
+.flotar-imagen-derecha img{
+float:right;
+}
+
+
+#block-panels-mini-encabezado-conexion-nacional .field-item {
+  margin-left: 0px;
+  margin-right: 97px;
+  padding-left: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+}
+
+#mini-panel-encabezado_conexion_nacional {
+  padding-left: 0px;
+  margin-left: 0px;
+  padding-right: 150px;
+}
+
+.fieldable-panels-pane {
+  margin-top: 34px;
+}
+
+.container-inline {
+  margin-top: 46px;
+}
+
+
+/*#main-menu {
+  margin-right: 0px;
+  padding-right: 293px;
+}*/
+
+#main-menu {
+  clear: both;
+  width:100%;
+  background:#DB2719;
+}
+
+ul {
+  margin-right: 0px;
+  padding-right: 0px;
+  border-right-width: 1px;
+  border-top-color: #f51bf5;
+  border-right-color: #f51bf5;
+  border-bottom-color: #f51bf5;
+  border-left-color: #f51bf5;
+}
+
+/*.section #main-menu ul {
+  margin-right: 0px;
+}
+*/
+
+#main-menu ul {
+  margin-left: 250px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+#footer-wrapper {
+  max-height:180px;
+  background: #DED8D5;
+  }
+  
+
+

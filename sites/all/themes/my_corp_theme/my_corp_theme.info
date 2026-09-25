@@ -1,0 +1,31 @@
+name = My Corporate Theme
+base theme = corporateclean
+description = A flexible, recolorable theme with many regions based on CorporateClean theme
+core = 7.x
+version = 1.0
+
+stylesheets[all][] = css/my-style.css
+stylesheets[all][] = css/my-menu.css
+stylesheets[all][] = color/colors.css
+stylesheets[all][] = css/special-pages.css
+scripts[] = mycorp.js
+
+regions[navigation] = Navigation
+regions[search_area] = Search area
+regions[highlighted] = Highlighted
+regions[content] = Content
+regions[sidebar_first] = First sidebar
+regions[sidebar_second] = Second sidebar
+regions[banner] = Banner
+regions[footer_first] = Footer first
+regions[footer_second] = Footer second
+regions[footer_third] = Footer third
+regions[footer] = Footer
+regions[footer_bottom_right] = Footer bottom right
+regions[help] = Help
+regions[page_top] = Page top
+regions[page_bottom] = Page bottom
+;test
+
+
+

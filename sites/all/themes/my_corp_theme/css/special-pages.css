@@ -1,0 +1,32 @@
+
+/*************************************************
+Despliegue de pÃ¡ginas que son visitadas via frames
+**************************************************/ 
+.page-presupuestos #main > div > div > div > div > div > div > div.view-header > div,
+#main > div > div > div > div > div > div > div.view-header > div{
+ display: none !important;	
+}
+
+.page-sp-tesoreria div#banner,.page-sp-tesoreria div#header-menu, .page-sp-tesoreria div#footer-bottom,.page-sp-informacion-financiera div#banner,.page-sp-informacion-financiera div#header-menu,.page-sp-informacion-financiera div#footer-bottom,
+.page-sp-coordinacion-fiscal div#banner,.page-sp-coordinacion-fiscal div#header-menu,.page-sp-coordinacion-fiscal div#footer-bottom,
+.page-sp-presupuestos div#banner,.page-sp-presupuestos div#header-menu,.page-sp-presupuestos div#footer-bottom,
+.page-sp-disciplina-financiera div#banner,.page-sp-disciplina-financiera div#header-menu,.page-sp-disciplina-financiera div#footer-bottom,
+.page-sp-patrimonio-municipal div#banner,.page-sp-patrimonio-municipal div#header-menu,.page-sp-patrimonio-municipal div#footer-bottom,
+.page-sp-normatividad div#banner,.page-sp-normatividad div#header-menu,.page-sp-normatividad div#footer-bottom
+ {
+ display: none !important;	
+ }
+
+.page-sp-informacion-financiera div#main,.page-sp-coordinacion-fiscal div#main,.page-sp-presupuestos div#main,.page-sp-disciplina-financiera div#main,.page-sp-patrimonio-municipal div#main,.page-sp-normatividad div#main
+ {
+ margin-top:50px !important;	
+ }
+
+
+/*#header .special,#header-menu .special,#banner .special,#footer .special{
+ visibility: hidden !important;
+}
+*/
+
+
+

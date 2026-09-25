@@ -1,0 +1,373 @@
+html {
+	background: #fff;
+}
+
+body {
+	background: #fff;
+	font-size: 18px;
+	line-height: 25px;
+	/*color: #787b80;*/
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 200;
+	min-width: 300px;
+	padding: 0;
+}
+
+
+
+a {
+	text-decoration: none;
+	color: #ba5a69;
+}
+	a:hover {
+		color: #53284f;
+	}
+
+/* HEADER ********************************* */
+/* ----- Header Region --------------- */
+
+
+.header {
+        max-height:150px;
+        background:#E2E2E2;
+	    margin-top: 0px;
+		margin-bottom: 0px;
+        overflow:auto;
+}
+
+#field-slideshow-1-wrapper, #field-slideshow-2-wrapper{
+  max-height:125px;
+  margin-top:12px !important;
+}
+
+.header-bottom {
+    background:inherit;
+	padding-top: 13px;
+	padding-bottom: 13px;
+}
+
+/*.header-bottom h1, h2, h3, h4, h5, h6 {
+	color: #4d4f53;
+	color: #000000;
+	font-weight: 700;
+	font-size: 30px;
+	margin-bottom: 30px;
+	padding-top: 0;
+	margin-top: 0;
+}*/
+
+
+.header-bottom .container h1, h2, h3, h4, h5, h6 {
+  margin-top:20px;
+  /*width:30%;*/
+  text-align:left;
+  /*font-weight: 700;*/
+  font-size: 24px !important;
+  font-family: Tahoma,Geneva,Sans-Serif;
+  background-color: #ffffff;
+  color: #DA2E1A !important;
+  border-bottom: 5px solid #DA2E1A !important;
+  }
+
+
+/* ----- Logo ------------------------ */
+/* ----- Site Title and Slogan ------- */
+#logo {
+	padding-left: 3px;
+	
+	}
+
+/* NAVIGATION ***************************** */
+/* ----- Main Navigation ------------- */
+ul.menu li {
+	margin: 0;
+	padding: 0;
+}
+
+
+#main-menu {
+  /*  margin-top:-50px !important;*/
+    max-height:40px;
+	background: #ed1d25;
+}
+
+#main-nav ul.menu, .footer-menu ul.menu {
+	width: 100%;
+	border-right: 1px solid #ffffff;
+	list-style: none;
+}
+#main-nav ul.menu > li, .footer-menu ul.menu > li {
+	width: 14.285%;
+	border-left: 1px solid #ffffff;
+	/*border-bottom: 1px solid #ed1d25;*/
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+	.footer-menu ul.menu > li {
+		float: left;
+		list-style-image: none;
+  		list-style-type: none;
+  		border-color: #ffffff;
+	}
+
+	.footer-menu ul.menu {
+		margin-bottom: 0;
+		border-color: #ffffff;
+	}
+
+	.footer-menu ul.menu:after {
+		content: '';
+		width: 100%;
+		clear: both;
+		display: block;
+	}
+.navbar {
+	margin-bottom: 0;
+}
+/*.navbar-inner {
+    background:!important;
+    border-color:#ffffff;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    box-shadow: none;
+    min-height: 43px;
+    padding-left: 0;
+    padding-right: 1px;
+}*/
+
+.navbar-inner {
+    -webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border-color: #ffffff;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+.navbar .nav > li > a, .footer-menu ul.menu > li > a {
+    color: #fff;
+    float: none;
+    padding: 10px 0px;
+    text-shadow: none;
+    font-size: 16px;
+    text-align: center;
+	background: #9C9E9F;
+}
+	.navbar .nav > li > a {
+		/*background: #009b76;*/
+		background: #9C9E9F;
+	}
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus, .navbar .nav > li > a:hover,
+.footer-menu ul.menu > li > a:hover, .footer-menu ul.menu > li.active > a {
+    background: #AFAEAE;
+    box-shadow: none;
+    color: #fff;
+    font-weight: 700;
+}
+.footer-menu ul.menu > li > a:hover, .footer-menu ul.menu > li.active > a {
+	background:  #AFAEAE;
+}
+
+#main{
+	padding-top: -50px !important;
+}
+
+.ancho-destacadas{
+	width:800px;
+}
+
+.pane-slideshow-destacadas .views-field-title {
+	font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 700;
+	font-size: 24px;
+	line-height: 50px;
+    text-decoration: none;
+	background:#868293;
+	color: #ffffff;
+	margin-bottom: 5px;
+}
+
+.subtitulo-panel h2{
+    height:50px;
+    color:#ffffff !important;
+    background:#919191;	
+} 
+/* ----- Secondary Navigation -------- */
+/* ----- Breadcrumbs ----------------- */
+/* ----- First Sidebar Menu Blocks --- */
+/* ----- Second Sidebar Menu Blocks -- */
+/* ----- Admin Menu ------------------ */
+/* ----- Pager Nav ------------------- */
+/* SIDEBARS ******************************* */
+
+/* FOOTER ********************************* */
+/* ----- Fat Footer ------------------ */
+
+#footer-upper {
+	background: background:#E2E2E2;
+}
+
+
+
+.site-footer {
+    max-height: 180px;
+    background:#E2E2E2;
+	margin-top: 0px;
+}
+
+#footer-top {
+	background:#DB2E1A;
+	padding: 0 0;
+}
+
+.flotar-imagen-izquierda img{
+float:left;
+}
+
+.flotar-imagen-derecha img{
+float:right;
+}
+
+.relleno-arriba-01{
+padding-top: -200px;
+}
+
+.copyright {
+    padding-top: 130px;
+    padding-right:50px;
+    font-size:10px;
+	text-align: center;
+}
+
+/* SLIDESHOWS FOR PP_SLIDESHOW ******************************** */
+
+#main {
+	padding-top: 13px;
+	padding-bottom: 13px;
+}
+
+/* SLIDESHOWS FOR PP_SLIDESHOWS (BOTTOM) ******************************** */
+
+.field-name-field-slideshow-btmtxt-slide {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-image a,
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-image img {
+    display:block;
+    width: 100%;
+    height: auto;
+}
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-body  {
+    position: relative;
+    bottom: 0;
+	width:100%;
+    height: auto;
+	background: #AFAEAE;
+    /*background: url("../images/slideshow_text_bottom/transparent-blue-bg.png") repeat;*/
+    color: #fff;
+   /* font-size: 700% !important;*/
+    text-align:center;
+	/*text-transform:uppercase;*/
+	/*font-weight:600;*/
+    /*line-height: 50px;*/
+    display: block;
+    padding: -30px 16px 10px;
+}
+
+.field-name-field-slideshow-btmtxt-slide:hover .field-slideshow-body {
+    /*background: #2682ca;*/
+}
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-caption a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 17px;
+    line-height: normal;
+}
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-description {
+    color: #ddd;
+    font-size: 13px;
+    text-decoration: none;
+    line-height: 1.4em;
+    display: inline;
+}
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-body .field-slideshow-caption a,
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-body .field-slideshow-description {
+    border-bottom: 1px dashed transparent;
+}
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-body:hover .field-slideshow-caption a {
+    border-color: #fff;
+}
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-body:hover .field-slideshow-description {
+    border-color: #ddd;
+}
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-controls a {
+    position: absolute;
+    top: 40%;
+    width: 30px;
+    height: 70px;
+    display: block;
+    overflow: hidden;
+    background-color: rgba(200, 200, 200, 0.5);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -o-border-radius: 10px;
+    -ms-border-radius: 10px;
+    border-radius: 10px;
+    z-index: 99;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-controls .prev {
+    left: 20px;
+    background-image: url("../images/slideshow_text_bottom/slider-back.png");
+}
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-controls .next {
+    right: 20px;
+    background-image: url("../images/slideshow_text_bottom/slider-next.png");
+}
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-controls a {
+    display: block;
+    text-indent: -9000px;
+    text-transform: capitalize;
+}
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-pager {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    width: auto;
+    height: auto;
+    z-index: 99;
+}
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-pager a {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 0 2px;
+    text-indent: -9000px;
+    text-transform: capitalize;
+    background: url("../images/slideshow_text_bottom/slider-pager.png") no-repeat 0 0;
+    overflow: hidden;
+}
+.field-name-field-slideshow-btmtxt-slide .field-slideshow-pager a.activeSlide {
+    background-image: url("../images/slideshow_text_bottom/slider-pager-active.png");
+}
+
+
+div.layout-responsive-region:nth-child(1){
+	padding-left:95px;
+}
+
+div.layout-responsive-region:nth-child(10){
+	margin-top:-200px;
+}
+div.layout-responsive-region:nth-child(3){
+	padding-left:10%;
+}
+
+/* ----- Print ----------------------- */

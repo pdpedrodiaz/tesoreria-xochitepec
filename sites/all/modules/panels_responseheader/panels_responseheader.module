@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Panels HTTP response header
+ *
+ * Provides a pane that sets a http response header.
+ */
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function panels_responseheader_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools' && $plugin == 'content_types') {
+    return 'content_types';
+  }
+}
+
