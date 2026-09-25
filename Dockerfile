@@ -41,6 +41,9 @@ COPY . /var/www/html
 RUN mkdir -p /var/www/html/sites/default/files \
     && chown -R www-data:www-data /var/www/html/sites/default/files
 
+# Asegurar que PHP-FPM escuche en 127.0.0.1:9000
+RUN sed -i 's/listen = .*/listen = 127.0.0.1:9000/' /usr/local/etc/php-fpm.d/www.conf
+
 EXPOSE 8080
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
