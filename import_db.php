@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $errors = [];
 
         while (!feof($file) && $queries_executed <$max_queries_per_batch) {
-            // Lectura con búfer amplio de 1MB por línea para evitar trucamiento de blobs/inserts gigantes
+            // Lectura con búfer amplio de 1MB por línea para evitar truncamiento
             $line = fgets($file, 1048576); 
             if ($line === false) break;
 
@@ -120,9 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
             $query .=$line;
             if (substr($trimmed_line, -1) == ';') {
-                if (!$mysqli->query($query)) {
-                    // Guardar advertencia en el log si hay error en la consulta pero continuar
-                    $errors[] = "Error en tabla '$current_table': " . substr($mysqli->error, 0, 150);
+                if (!$mysqli->query($query)) {$errors[] = "Error en tabla '$current_table': " . substr($mysqli->error, 0, 150);
                 }
                 $query = '';$queries_executed++;
             }
@@ -153,24 +151,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Importador SQL Avanzado con Contador de Tablas</title>
+    <title>Importador SQL Avanzado</title>
     <style>
-        body { font-family: Segoe UI, Arial, sans-serif; padding: 30px; background: #eef2f5; color: #333; }
-        .card { max-width: 750px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        body { font-family: Arial, sans-serif; padding: 30px; background: #eef2f5; color: #333; }
+        .card { max-width: 750px; margin: auto; background: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; text-align: center; }
         .stat-box { background: #f8f9fa; padding: 15px; border-radius: 6px; border: 1px solid #e0e0e0; }
         .stat-number { font-size: 22px; font-weight: bold; color: #007bff; margin-top: 5px; }
         .progress-container { width: 100%; background: #e0e0e0; border-radius: 6px; overflow: hidden; margin-top: 20px; display: none; }
-        .progress-bar { width: 0%; height: 28px; background: #007bff; text-align: center; color: white; line-height: 28px; font-weight: bold; transition: width 0.15s; }
+        .progress-bar { width: 0%; height: 28px; background: #007bff; text-align: center; color: #ffffff; line-height: 28px; font-weight: bold; transition: width 0.15s; }
         #console-log { margin-top: 20px; background: #1e1e1e; color: #00ff66; font-family: monospace; padding: 15px; border-radius: 6px; height: 160px; overflow-y: auto; font-size: 13px; display: none; }
-        button { padding: 12px 24px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 15px; }
+        button { padding: 12px 24px; background: #dc3545; color: #ffffff; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 15px; }
         button:disabled { background: #6c757d; }
     </style>
 </head>
 <body>
     <div class="card">
         <h2>Importador de Base de Datos por Lotes</h2>
-        <p>Procesamiento optimizado para volcados extensos de Drupal 7 con reporte continuo de tablas.</p>
+        <p>Procesamiento optimizado para volcados extensos de Drupal con reporte continuo de tablas.</p>
         
         <input type="file" id="sqlFile" accept=".sql,.gz" style="width: 100%;"><br>
         <button id="startBtn" onclick="startImport()">Limpiar Base de Datos e Importar</button>
@@ -270,14 +268,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 currentTable = batchResult.currentTable;
                 createdTablesCount = batchResult.createdTablesCount;
 
-                // Actualizar contadores en pantalla
                 document.getElementById('statCurrentTable').innerText = currentTable;
                 document.getElementById('statCreatedTables').innerText = createdTablesCount + ' / ' + totalTables;
                 
                 const pending = Math.max(0, totalTables - createdTablesCount);
                 document.getElementById('statPendingTables').innerText = pending;
 
-                // Mostrar avisos no-fatales si los hubo
                 if (batchResult.errors && batchResult.errors.length > 0) {
                     batchResult.errors.forEach(err => logMessage('<span style="color:yellow;">⚠️ ' + err + '</span>'));
                 }
