@@ -1,184 +1,1 @@
-<?php
-// Extender límites para la reconstrucción final y extracción
-ini_set('memory_limit', '1024M');
-ini_set('max_execution_time', '900');
-
-$target_dir = __DIR__ . '/sites/default/files/';
-$temp_dir   = $target_dir . 'chunks_temp/';
-
-if (!file_exists($target_dir)) {
-    mkdir($target_dir, 0775, true);
-}
-
-// 1. PROCESAR CADA FRAGMENTO (CHUNK) ENVIADO POR JAVASCRIPT
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'upload_chunk') {
-    header('Content-Type: application/json');
-
-    $fileName   = preg_replace('/[^a-zA-Z0-0_\.-]/', '_', $_POST['fileName']);
-    $chunkIndex = intval($_POST['chunkIndex']);
-    $totalChunks= intval($_POST['totalChunks']);
-
-    $fileTempDir = $temp_dir . $fileName . '_parts/';
-    if (!file_exists($fileTempDir)) {
-        mkdir($fileTempDir, 0775, true);
-    }
-
-    if (isset($_FILES['fileChunk']) && $_FILES['fileChunk']['error'] === UPLOAD_ERR_OK) {
-        $chunkFile = $fileTempDir . "part_" . $chunkIndex;
-        move_uploaded_file($_FILES['fileChunk']['tmp_name'], $chunkFile);
-
-        // Si es el último fragmento, unir todos los pedazos
-        if ($chunkIndex + 1 === $totalChunks) {
-            $finalPath = $target_dir . $fileName;
-            $out = fopen($finalPath, 'wb');
-
-            for ($i = 0; $i < $totalChunks; $i++) {
-                $partPath = $fileTempDir . "part_" . $i;
-                if (file_exists($partPath)) {
-                    $in = fopen($partPath, 'rb');
-                    while ($buff = fread($in, 4096)) {
-                        fwrite($out, $buff);
-                    }
-                    fclose($in);
-                    @unlink($partPath);
-                }
-            }
-            fclose($out);
-            @rmdir($fileTempDir);
-
-            // Extraer el archivo ensamblado
-            $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-            $extracted = false;
-
-            if ($ext === 'zip') {
-                $zip = new ZipArchive();
-                if ($zip->open($finalPath) === TRUE) {
-                    $zip->extractTo($target_dir);
-                    $zip->close();
-                    $extracted = true;
-                }
-            } else {
-                try {
-                    $phar = new PharData($finalPath);
-                    $phar->extractTo($target_dir, null, true);
-                    $extracted = true;
-                } catch (Exception $e) {
-                    echo json_encode(['success' => false, 'error' => 'Error al extraer tar.gz: ' . $e->getMessage()]);
-                    exit;
-                }
-            }
-
-            if ($extracted) {
-                @unlink($finalPath);
-                echo json_encode(['success' => true, 'completed' => true]);
-                exit;
-            }
-        }
-
-        echo json_encode(['success' => true, 'completed' => false]);
-    } else {
-        echo json_encode(['success' => false, 'error' => 'Error al recibir el fragmento ' . $chunkIndex]);
-    }
-    exit;
-}
-?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Subida por Fragmentos - Tesorería Xochitepec</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 40px; background: #f4f4f9; }
-        .card { max-width: 650px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .progress-bar-container { width: 100%; background: #e0e0e0; border-radius: 5px; overflow: hidden; margin-top: 20px; display: none; }
-        .progress-bar { width: 0%; height: 25px; background: #28a745; text-align: center; color: white; line-height: 25px; font-weight: bold; transition: width 0.2s; }
-        #status-msg { margin-top: 20px; font-weight: bold; }
-        button { padding: 12px 24px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        button:disabled { background: #6c757d; }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <h2>Cargar Respaldo de Archivos (Subida Inteligente 223 MB)</h2>
-        <p>Selecciona tu archivo comprimido (<b>.zip</b> o <b>.tar.gz</b>):</p>
-        
-        <input type="file" id="fileInput" accept=".zip,.tar.gz,.tgz" style="margin-bottom: 20px; width: 100%;"><br>
-        <button id="uploadBtn" onclick="startChunkUpload()">Iniciar Subida e Instalación</button>
-
-        <div class="progress-bar-container" id="progressContainer">
-            <div class="progress-bar" id="progressBar">0%</div>
-        </div>
-
-        <div id="status-msg"></div>
-    </div>
-
-    <script>
-    async function startChunkUpload() {
-        const fileInput = document.getElementById('fileInput');
-        const file = fileInput.files[0];
-        
-        if (!file) {
-            alert('Por favor selecciona primero un archivo.');
-            return;
-        }
-
-        const chunkSize = 5 * 1024 * 1024; // Fragmentos de 5 MB
-        const totalChunks = Math.ceil(file.size / chunkSize);
-        
-        const uploadBtn = document.getElementById('uploadBtn');
-        const progressContainer = document.getElementById('progressContainer');
-        const progressBar = document.getElementById('progressBar');
-        const statusMsg = document.getElementById('status-msg');
-
-        uploadBtn.disabled = true;
-        progressContainer.style.display = 'block';
-        statusMsg.style.color = '#333';
-        statusMsg.innerHTML = 'Enviando fragmentos al servidor...';
-
-        for (let i = 0; i < totalChunks; i++) {
-            const start = i * chunkSize;
-            const end = Math.min(file.size, start + chunkSize);
-            const chunk = file.slice(start, end);
-
-            const formData = new FormData();
-            formData.append('action', 'upload_chunk');
-            formData.append('fileName', file.name);
-            formData.append('chunkIndex', i);
-            formData.append('totalChunks', totalChunks);
-            formData.append('fileChunk', chunk, file.name);
-
-            try {
-                const response = await fetch('deploy_files.php', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                const result = await response.json();
-
-                if (!result.success) {
-                    statusMsg.style.color = 'red';
-                    statusMsg.innerHTML = '❌ Error: ' + (result.error || 'Falla en el fragmento ' + i);
-                    uploadBtn.disabled = false;
-                    return;
-                }
-
-                // Actualizar barra de progreso
-                const percent = Math.round(((i + 1) / totalChunks) * 100);
-                progressBar.style.width = percent + '%';
-                progressBar.innerText = percent + '%';
-
-                if (result.completed) {
-                    statusMsg.style.color = 'green';
-                    statusMsg.innerHTML = '🎉 <b>¡Éxito total!</b> Todos los fragmentos fueron ensamblados y desempacados en <code>sites/default/files/</code>.<br><br>Ya puedes abrir la <a href="/" target="_blank">página principal de tu sitio</a>.';
-                }
-            } catch (err) {
-                statusMsg.style.color = 'red';
-                statusMsg.innerHTML = '❌ Error de red al enviar el fragmento ' + (i + 1) + ' de ' + totalChunks + '. Reintenta nuevamente.';
-                uploadBtn.disabled = false;
-                return;
-            }
-        }
-    }
-    </script>
-</body>
-</html>
+<?phpini_set('memory_limit', '1024M');ini_set('max_execution_time', '900');$target_dir = __DIR__ . '/sites/default/files/';$temp_dir   = $target_dir . 'chunks_temp/';if (!file_exists($target_dir)) {    mkdir($target_dir, 0775, true);}// PROCESAR CADA FRAGMENTO (CHUNK) ENVIADO POR JAVASCRIPTif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'upload_chunk') {    header('Content-Type: application/json');    $fileName   = preg_replace('/[^a-zA-Z0-9_\.-]/', '_', $_POST['fileName']);    $chunkIndex = intval($_POST['chunkIndex']);    $totalChunks= intval($_POST['totalChunks']);    $fileTempDir = $temp_dir . $fileName . '_parts/';    if (!file_exists($fileTempDir)) {        mkdir($fileTempDir, 0775, true);    }    if (isset($_FILES['fileChunk']) && $_FILES['fileChunk']['error'] === UPLOAD_ERR_OK) {        $chunkFile = $fileTempDir . "part_" . $chunkIndex;        move_uploaded_file($_FILES['fileChunk']['tmp_name'], $chunkFile);        // Si es el último fragmento, ensamblar y extraer        if ($chunkIndex + 1 === $totalChunks) {            $finalPath = $target_dir . $fileName;            $out = fopen($finalPath, 'wb');            for ($i = 0; $i < $totalChunks; $i++) {                $partPath = $fileTempDir . "part_" . $i;                if (file_exists($partPath)) {                    $in = fopen($partPath, 'rb');                    while ($buff = fread($in, 4096)) {                        fwrite($out, $buff);                    }                    fclose($in);                    @unlink($partPath);                }            }            fclose($out);            @rmdir($fileTempDir);            // DESCOMPRESIÓN NATIVA USANDO COMANDOS DE SISTEMA (TAR / UNZIP)            $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));            $output = [];            $returnVar = 0;            if ($ext === 'zip') {                exec("unzip -o " . escapeshellarg($finalPath) . " -d " . escapeshellarg($target_dir) . " 2>&1", $output, $returnVar);            } else {                // Para .tar.gz, .tgz o .tar                exec("tar -xzf " . escapeshellarg($finalPath) . " -C " . escapeshellarg($target_dir) . " 2>&1", $output, $returnVar);            }            @unlink($finalPath);            if ($returnVar === 0) {                echo json_encode(['success' => true, 'completed' => true]);            } else {                $errDetails = implode("\n", $output);                echo json_encode(['success' => false, 'error' => 'Falla en descompresión nativa: ' . $errDetails]);            }            exit;        }        echo json_encode(['success' => true, 'completed' => false]);    } else {        echo json_encode(['success' => false, 'error' => 'Error al recibir el fragmento ' . $chunkIndex]);    }    exit;}?><!DOCTYPE html><html lang="es"><head>    <meta charset="UTF-8">    <title>Subida por Fragmentos - Tesorería Xochitepec</title>    <style>        body { font-family: Arial, sans-serif; padding: 40px; background: #f4f4f9; }        .card { max-width: 650px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }        .progress-bar-container { width: 100%; background: #e0e0e0; border-radius: 5px; overflow: hidden; margin-top: 20px; display: none; }        .progress-bar { width: 0%; height: 25px; background: #28a745; text-align: center; color: white; line-height: 25px; font-weight: bold; transition: width 0.2s; }        #status-msg { margin-top: 20px; font-weight: bold; }        button { padding: 12px 24px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; }        button:disabled { background: #6c757d; }    </style></head><body>    <div class="card">        <h2>Cargar Respaldo de Archivos (Subida Inteligente 223 MB)</h2>        <p>Selecciona tu archivo comprimido (<b>.zip</b> o <b>.tar.gz</b>):</p>                <input type="file" id="fileInput" accept=".zip,.tar.gz,.tgz" style="margin-bottom: 20px; width: 100%;"><br>        <button id="uploadBtn" onclick="startChunkUpload()">Iniciar Subida e Instalación</button>        <div class="progress-bar-container" id="progressContainer">            <div class="progress-bar" id="progressBar">0%</div>        </div>        <div id="status-msg"></div>    </div>    <script>    async function startChunkUpload() {        const fileInput = document.getElementById('fileInput');        const file = fileInput.files[0];                if (!file) {            alert('Por favor selecciona primero un archivo.');            return;        }        const chunkSize = 5 * 1024 * 1024; // 5 MB por pedazo        const totalChunks = Math.ceil(file.size / chunkSize);                const uploadBtn = document.getElementById('uploadBtn');        const progressContainer = document.getElementById('progressContainer');        const progressBar = document.getElementById('progressBar');        const statusMsg = document.getElementById('status-msg');        uploadBtn.disabled = true;        progressContainer.style.display = 'block';        statusMsg.style.color = '#333';        statusMsg.innerHTML = 'Enviando fragmentos al servidor...';        for (let i = 0; i < totalChunks; i++) {            const start = i * chunkSize;            const end = Math.min(file.size, start + chunkSize);            const chunk = file.slice(start, end);            const formData = new FormData();            formData.append('action', 'upload_chunk');            formData.append('fileName', file.name);            formData.append('chunkIndex', i);            formData.append('totalChunks', totalChunks);            formData.append('fileChunk', chunk, file.name);            try {                const response = await fetch('deploy_files.php', {                    method: 'POST',                    body: formData                });                                const result = await response.json();                if (!result.success) {                    statusMsg.style.color = 'red';                    statusMsg.innerHTML = '❌ Error: ' + (result.error || 'Falla en el fragmento ' + i);                    uploadBtn.disabled = false;                    return;                }                const percent = Math.round(((i + 1) / totalChunks) * 100);                progressBar.style.width = percent + '%';                progressBar.innerText = percent + '%';                if (result.completed) {                    statusMsg.style.color = 'green';                    statusMsg.innerHTML = '🎉 <b>¡Éxito total!</b> Archivos desempacados correctamente con la herramienta nativa del sistema en <code>sites/default/files/</code>.<br><br>Ya puedes abrir la <a href="/" target="_blank">página principal de tu sitio</a>.';                }            } catch (err) {                statusMsg.style.color = 'red';                statusMsg.innerHTML = '❌ Error de red al enviar el fragmento ' + (i + 1) + '. Reintenta nuevamente.';                uploadBtn.disabled = false;                return;            }        }    }    </script></body></html>
