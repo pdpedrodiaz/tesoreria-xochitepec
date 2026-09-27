@@ -707,10 +707,10 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  * );
  * @endcode
  */
-#$conf['trusted_host_patterns'] = array(
-#  '^tesoreria-xochitepec\.net$',
-#       '^www\.tesoreria-xochitepec\.net$',
-# );
+$conf['trusted_host_patterns'] = array(
+  '^tesoreria-xochitepec-production\.up\.railway\.app$',
+       '^www\.tesoreria-xochitepec-production\.up\.railway.app$',
+ );
 /**
  * Theme debugging:
  *
