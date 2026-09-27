@@ -707,10 +707,18 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  * );
  * @endcode
  */
+
+
 $conf['trusted_host_patterns'] = array(
-  '^tesoreria-xochitepec-production\.up\.railway\.app$',
-       '^www\.tesoreria-xochitepec-production\.up\.railway.app$',
+  '^tesoreria-xochitepec-production.up.railway.app$',
+       '^www\.tesoreria-xochitepec-production.up.railway.app$',
  );
+
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+  $_SERVER['HTTPS'] = 'on';
+}
+
+
 /**
  * Theme debugging:
  *
